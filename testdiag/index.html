@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+</style>
+
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script>
+    const { grid, solutions } = { "grid": [["B", "U", "D", "W", "E", "I", "S", "E", "R", "K"], ["T", "K", "C", "R", "A", "T", "S", "T", "A", "I"], ["T", "W", "S", "O", "C", "H", "I", "A", "N", "L"], ["E", "T", "F", "O", "K", "R", "G", "O", "A", "A"], ["S", "T", "R", "O", "U", "N", "V", "C", "G", "N"], ["M", "E", "A", "P", "A", "E", "G", "L", "N", "J"], ["I", "V", "A", "R", "N", "V", "Y", "B", "A", "I"], ["D", "T", "A", "E", "M", "D", "T", "E", "K", "F"], ["I", "H", "I", "R", "O", "A", "H", "S", "I", "B"], ["T", "N", "A", "R", "A", "K", "S", "C", "L", "E"]], "solutions": [{ "word": "SOCH", "start": [2, 2], "end": [5, 2] }, { "word": "ISHA", "start": [8, 8], "end": [5, 8] }, { "word": "KOFTE", "start": [4, 3], "end": [0, 3] }, { "word": "STARC", "start": [6, 1], "end": [2, 1] }, { "word": "KARAN", "start": [5, 9], "end": [1, 9] }, { "word": "BUDWEISER", "start": [0, 0], "end": [8, 0] }, { "word": "KANGANA", "start": [8, 7], "end": [8, 1] }, { "word": "KILANJI", "start": [9, 0], "end": [9, 6] }, { "word": "OVEN", "start": [7, 3], "end": [4, 6] }, { "word": "TIRUPATI", "start": [7, 1], "end": [0, 8] }, { "word": "SAMRAT", "start": [6, 9], "end": [1, 4] }] }
+    const app = document.getElementById('app');
+    app.style.position = 'relative';
+    createGrid([10, 10])
+
+    function createGrid([height, width]) {
+        for (let i = 0; i < height; i++) {
+            for (let j = 0; j < width; j++) {
+                app.appendChild(createCell(i + j))
+            }
+            app.innerHTML += '<br>';
+        }
+    }
+
+    function createCell(innerText) {
+        const cell = document.createElement('div')
+        cell.style.backgroundColor = '';
+        cell.style.width = '50px';
+        cell.style.height = '50px';
+        cell.style.display = 'inline-block'
+        cell.style.textAlign = 'center'
+        cell.style.verticalAlign = "middle"
+        cell.style.lineHeight = '50px'
+        cell.style.border = '1px solid black'
+        const text = document.createTextNode(innerText);
+        cell.appendChild(text)
+        return cell;
+    }
+
+    // sol.style.left = '100px';
+    // sol.style.top = '0px';
+
+    // app.appendChild(sol)
+
+    function createSolution(startingPositon, endingPosition) {
+        const sol = document.createElement('div');
+        sol.style.position = 'absolute';
+        sol.style.borderRadius = '30px';
+        sol.style.height = '50px';
+        sol.style.backgroundImage = 'linear-gradient(to right, rgba(0, 255, 0, 0.5) , rgba(0, 2, 255, 0.5))';
+
+        const [startingX, startingY] = startingPositon;
+        const [endingX, endingY] = endingPosition;
+        const differenceX = endingX - startingX;
+        const differenceY = endingY - startingY;
+
+        const differenceXvalue = differenceX > 1 ? 'a' : differenceX < 0 ? 'b' : 'c';
+        const differenceYvalue = differenceY > 1 ? 'd' : differenceY < 0 ? 'e' : 'f';
+
+        const rotationAngles = {
+            af: 0,
+            ad: 45,
+            cd: 90,
+            bd: 135,
+            bf: 180,
+            be: 225,
+            ce: 270,
+            ae: 315,
+        }
+
+        sol.style.left = 50 * startingX + 'px';
+        sol.style.top = 50 * startingY + 'px';
+
+        const rotationAngle = rotationAngles[differenceXvalue + differenceYvalue]
+
+        sol.style.transform = `rotate(${rotationAngle}deg)`;
+        sol.style.transformOrigin = '25px center';
+
+        // Calculate the width of the solution div
+        const maxDifference = Math.max(Math.abs(differenceY), Math.abs(differenceX))
+        const widthMultiplier = (rotationAngle % 90 !== 0) ? Math.sqrt((50 * 50) + (50 * 50)) : 50
+        const width = (widthMultiplier * maxDifference) + 50;
+
+        console.log(width)
+
+        sol.style.width = width + 'px';
+
+        return sol;
+    }
+
+    solutions.forEach(solution => {
+
+        app.appendChild(createSolution(solution.start, solution.end));
+    })
+    // app.appendChild(createSolution([0, 9], [9, 0]));
+    // app.appendChild(createSolution([2, 9], [9, 2]));
+    // app.appendChild(createSolution([9, 2], [2, 9]));
+
+</script>
+
+</html>

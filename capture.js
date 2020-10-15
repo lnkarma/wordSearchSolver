@@ -112,8 +112,10 @@
         method: "POST",
         body: formData,
       })
-        .then((res) => {
-          console.log(res);
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          drwaWordSearch(data);
         })
         .catch((error) => console.log(error));
 
@@ -137,4 +139,88 @@ function b64toBlob(dataURI) {
     ia[i] = byteString.charCodeAt(i);
   }
   return new Blob([ab], { type: "image/jpeg" });
+}
+
+function drwaWordSearch({ grid, solutions }) {
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  app.style.position = "relative";
+  createGrid([10, 10], grid);
+
+  solutions.forEach((solution) => {
+    app.appendChild(createSolution(solution.start, solution.end));
+  });
+  // app.appendChild(createSolution([0, 9], [9, 0]));
+  // app.appendChild(createSolution([2, 9], [9, 2]));
+  // app.appendChild(createSolution([9, 2], [2, 9]));
+}
+
+function createGrid([height, width], grid) {
+  for (let i = 0; i < height; i++) {
+    for (let j = 0; j < width; j++) {
+      app.appendChild(createCell(grid[i][j]));
+    }
+    app.innerHTML += "<br>";
+  }
+}
+
+function createCell(innerText) {
+  const cell = document.createElement("div");
+  cell.style.backgroundColor = "";
+  cell.style.width = "50px";
+  cell.style.height = "50px";
+  cell.style.display = "inline-block";
+  cell.style.textAlign = "center";
+  cell.style.verticalAlign = "middle";
+  cell.style.lineHeight = "50px";
+  cell.style.border = "1px solid black";
+  const text = document.createTextNode(innerText);
+  cell.appendChild(text);
+  return cell;
+}
+
+function createSolution(startingPositon, endingPosition) {
+  const sol = document.createElement("div");
+  sol.style.position = "absolute";
+  sol.style.borderRadius = "30px";
+  sol.style.height = "50px";
+  sol.style.backgroundImage =
+    "linear-gradient(to right, rgba(0, 255, 0, 0.5) , rgba(0, 2, 255, 0.5))";
+
+  const [startingX, startingY] = startingPositon;
+  const [endingX, endingY] = endingPosition;
+  const differenceX = endingX - startingX;
+  const differenceY = endingY - startingY;
+
+  const differenceXvalue = differenceX > 1 ? "a" : differenceX < 0 ? "b" : "c";
+  const differenceYvalue = differenceY > 1 ? "d" : differenceY < 0 ? "e" : "f";
+
+  const rotationAngles = {
+    af: 0,
+    ad: 45,
+    cd: 90,
+    bd: 135,
+    bf: 180,
+    be: 225,
+    ce: 270,
+    ae: 315,
+  };
+
+  sol.style.left = 50 * startingX + "px";
+  sol.style.top = 50 * startingY + "px";
+
+  const rotationAngle = rotationAngles[differenceXvalue + differenceYvalue];
+
+  sol.style.transform = `rotate(${rotationAngle}deg)`;
+  sol.style.transformOrigin = "25px center";
+
+  // Calculate the width of the solution div
+  const maxDifference = Math.max(Math.abs(differenceY), Math.abs(differenceX));
+  const widthMultiplier =
+    rotationAngle % 90 !== 0 ? Math.sqrt(50 * 50 + 50 * 50) : 50;
+  const width = widthMultiplier * maxDifference + 50;
+
+  sol.style.width = width + "px";
+
+  return sol;
 }

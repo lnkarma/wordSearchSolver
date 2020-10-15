@@ -22,6 +22,7 @@ const puppeteer = require("puppeteer");
 async function startUpBrowser() {
   const browser = await puppeteer.launch({
     headless: false,
+    userDataDir: "data",
   });
 
   const page = await browser.newPage();
@@ -46,26 +47,26 @@ async function loadOcrSite(page) {
 }
 
 async function ocr(page, imageFile) {
-  //   await page.click("#vision-analysis_tab2");
-  //   await page.click("#vision-analysis2 > ul > li:nth-child(1) > select");
-  //   await page.keyboard.press("ArrowDown");
-  //   await page.keyboard.press("ArrowDown");
-  //   await page.keyboard.press(String.fromCharCode(13));
-  //   await page.click(
-  //     "#main > section.section.section-size2 > div:nth-child(4) > div > div.owl-stage-outer > div > div:nth-child(5) > button"
-  //   );
-
+  console.log("find input element");
   const fileUploadElement = await page.$(
     "#vision-ocr2 > ul > li:nth-child(2) > input[type=file]"
   );
-  fileUploadElement.uploadFile("image.jpg");
+  fileUploadElement.uploadFile(imageFile);
 
-  await page.waitForSelector("#detectTextPreview > div > p");
+  await page.waitForTimeout(1000);
+  await page.waitForSelector("#top > div.wa-loading-progress-container", {
+    timeout: 0,
+    hidden: true,
+  });
+  await page.waitForSelector("#detectTextPreview > div > p", {
+    timeout: 0,
+  });
+  //   await page.waitForSelector("#detectTextPreview > div > p:nth-child(1)");
 
   const ocrData = await page.evaluate(
     () => document.querySelector("#detectTextPreview > div").innerText
   );
-  loadOcrSite(page);
+  //   loadOcrSite(page);
 
   return ocrData;
 }

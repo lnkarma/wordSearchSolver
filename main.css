@@ -43,5 +43,18 @@
 .contentarea {
   font-size: 16px;
   font-family: "Lucida Grande", "Arial", sans-serif;
+  display: inline-block;
   width: 760px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  display: inline-block;
+}
+
+.contentarea {
+  width: 50vw;
 }
