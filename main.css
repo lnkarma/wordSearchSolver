@@ -1,32 +1,34 @@
-#video {
-  border: 1px solid black;
-  box-shadow: 2px 2px 3px black;
-  width: 320px;
-  height: 240px;
+body {
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
-#photo {
-  border: 1px solid black;
-  box-shadow: 2px 2px 3px black;
-  width: 320px;
-  height: 240px;
-}
-
-#canvas {
-  display: none;
-}
-
-.camera {
-  width: 340px;
+body .contentarea {
+  font-size: 16px;
+  font-family: "Lucida Grande", "Arial", sans-serif;
   display: inline-block;
 }
 
-.output {
-  width: 340px;
-  display: inline-block;
+body .contentarea .camera {
+  height: 50vh;
+  position: relative;
 }
 
-#startbutton {
+body .contentarea .camera #video {
+  /* border: 1px solid black; */
+  /* box-shadow: 2px 2px 3px black; */
+  /* width: 320px; */
+  height: 50vh;
+  width: calc(50vh * 4 / 3 - 1px);
+}
+
+body .contentarea .camera #startbutton {
   display: block;
   position: relative;
   margin-left: auto;
@@ -34,27 +36,60 @@
   bottom: 32px;
   background-color: rgba(0, 150, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.2);
   font-size: 14px;
   font-family: "Lucida Grande", "Arial", sans-serif;
-  color: rgba(255, 255, 255, 1);
+  color: white;
 }
 
-.contentarea {
-  font-size: 16px;
-  font-family: "Lucida Grande", "Arial", sans-serif;
+body .contentarea #canvas {
+  display: none;
+}
+
+body .contentarea .output {
+  height: 50vh;
+  position: relative;
+}
+
+body .contentarea .output #photo {
+  width: calc(50vh * 4 / 3 - 1px);
+  height: 50vh;
+}
+
+body .contentarea .verticalSeperator {
+  width: 25%;
+  background-color: rgba(255, 0, 0, 0.5);
+  height: calc(50vh - 1px);
+  position: absolute;
+  top: 0;
+}
+
+body .contentarea #vsLeft {
+  left: 0;
+}
+
+body .contentarea #vsRight {
+  right: 0;
+}
+
+body .result {
+  width: 100vmin;
+  height: 100vmin;
   display: inline-block;
-  width: 760px;
+  border: 1px solid red;
+}
+
+body .result #app {
+  display: inline-block;
 }
 
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
-#app {
-  display: inline-block;
+.hidden {
+  display: none;
 }
-
-.contentarea {
-  width: 50vw;
-}
+/*# sourceMappingURL=main.css.map */
