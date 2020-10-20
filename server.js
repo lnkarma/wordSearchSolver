@@ -7,9 +7,6 @@ const { startUpBrowser, ocr } = require("./puppeteer");
 const { parseOcrData } = require("./parseOcr");
 
 const port = process.env.PORT || 3030;
-console.log(process.env.HEROKU);
-if (process.env._ && process.env._.indexOf("heroku") !== -1)
-  console.log("I'm in Heroku!");
 
 const app = express();
 var upload = multer({ dest: "uploads/originals" });

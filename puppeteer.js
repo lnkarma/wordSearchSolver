@@ -20,11 +20,16 @@ const puppeteer = require("puppeteer");
 
 // //   fileUploadElement.uploadFile("image.jpg");
 async function startUpBrowser() {
-  const browser = await puppeteer.launch({
-    headless: false,
-    userDataDir: "data",
-    args: ["--no-sandbox"],
-  });
+  const browser = await puppeteer.launch(
+    process.env.HEROKU
+      ? {
+          args: ["--no-sandbox"],
+        }
+      : {
+          headless: false,
+          userDataDir: "data",
+        }
+  );
 
   const page = await browser.newPage();
   loadOcrSite(page);
