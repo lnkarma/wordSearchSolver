@@ -7,6 +7,9 @@ const { startUpBrowser, ocr } = require("./puppeteer");
 const { parseOcrData } = require("./parseOcr");
 
 const port = process.env.PORT || 3030;
+console.log(process.env.HEROKU);
+if (process.env._ && process.env._.indexOf("heroku") !== -1)
+  console.log("I'm in Heroku!");
 
 const app = express();
 var upload = multer({ dest: "uploads/originals" });
@@ -24,7 +27,7 @@ app.all("*", upload.single("source"), async (req, res) => {
   const targetPath = path.join(__dirname, `./uploads/${imageName}`);
   await fs.renameSync(tempPath, targetPath);
 
-  const ocrdata = await ocr(page, "image.png");
+  const ocrdata = await ocr(page, "./image1602820376259.png");
   // const ocrdata = await ocr(page, targetPath);
   console.log(ocrdata);
   const { wordSearchGrid, wordsToFind } = parseOcrData(ocrdata);
