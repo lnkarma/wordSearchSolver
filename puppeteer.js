@@ -21,8 +21,8 @@ const puppeteer = require("puppeteer");
 // //   fileUploadElement.uploadFile("image.jpg");
 async function startUpBrowser() {
   const browser = await puppeteer.launch({
-    headless: true,
-    // userDataDir: "data",
+    headless: false,
+    userDataDir: "data",
     args: ["--no-sandbox"],
   });
 

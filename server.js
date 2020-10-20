@@ -6,6 +6,8 @@ const { wordSearchSolver } = require("./wordSearchSolver");
 const { startUpBrowser, ocr } = require("./puppeteer");
 const { parseOcrData } = require("./parseOcr");
 
+const port = process.env.PORT || 3030;
+
 const app = express();
 var upload = multer({ dest: "uploads/originals" });
 var page;
@@ -19,20 +21,20 @@ app.all("*", upload.single("source"), async (req, res) => {
   const imageName = `image.png`;
   // const imageName = `image${Date.now()}.png`;
   const tempPath = req.file.path;
-  // const originalPath = path.join(__dirname, `./uploads/originals/${imageName}`);
   const targetPath = path.join(__dirname, `./uploads/${imageName}`);
   await fs.renameSync(tempPath, targetPath);
 
-  const ocrdata = await ocr(page, targetPath);
-  // console.log(ocrdata);
+  const ocrdata = await ocr(page, "image.png");
+  // const ocrdata = await ocr(page, targetPath);
+  console.log(ocrdata);
   const { wordSearchGrid, wordsToFind } = parseOcrData(ocrdata);
-  // console.log(wordSearchGrid);
+  console.log(wordSearchGrid);
   const solutions = wordSearchSolver(wordSearchGrid, wordsToFind);
   res.header("Access-Control-Allow-Origin", "*");
   res.json({ grid: wordSearchGrid, solutions });
 });
 
-app.listen(process.env.PORT || 3030, async () => {
-  console.log("Server is up on port 3030");
+app.listen(port, async () => {
+  console.log(`Server is up on port ${port}`);
   page = await startUpBrowser();
 });
