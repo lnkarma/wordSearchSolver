@@ -23,6 +23,7 @@ async function startUpBrowser() {
   const browser = await puppeteer.launch({
     headless: false,
     userDataDir: "data",
+    args: ["--no-sandbox"],
   });
 
   const page = await browser.newPage();
