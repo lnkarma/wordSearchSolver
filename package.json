@@ -12,7 +12,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "multer": "^1.4.2",
-    "puppeteer": "@5.3.1"
+    "puppeteer": "^5.3.1"
   },
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0"
