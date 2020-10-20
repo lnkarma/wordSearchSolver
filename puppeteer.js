@@ -22,7 +22,7 @@ const puppeteer = require("puppeteer");
 async function startUpBrowser() {
   const browser = await puppeteer.launch({
     headless: true,
-    userDataDir: "data",
+    // userDataDir: "data",
     args: ["--no-sandbox"],
   });
 

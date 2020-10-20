@@ -16,7 +16,8 @@ app.all("*", upload.single("source"), async (req, res) => {
   }
   console.log(req.file);
 
-  const imageName = `image${Date.now()}.png`;
+  const imageName = `image.png`;
+  // const imageName = `image${Date.now()}.png`;
   const tempPath = req.file.path;
   // const originalPath = path.join(__dirname, `./uploads/originals/${imageName}`);
   const targetPath = path.join(__dirname, `./uploads/${imageName}`);
