@@ -29,7 +29,7 @@ app.all("*", upload.single("source"), async (req, res) => {
   res.json({ grid: wordSearchGrid, solutions });
 });
 
-app.listen(3030, async () => {
+app.listen(process.env.PORT || 3030, async () => {
   console.log("Server is up on port 3030");
   page = await startUpBrowser();
 });
