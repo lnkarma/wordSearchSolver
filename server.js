@@ -11,6 +11,9 @@ var upload = multer({ dest: "uploads/originals" });
 var page;
 
 app.all("*", upload.single("source"), async (req, res) => {
+  if (!req.file) {
+    res.send("send an image to parse");
+  }
   console.log(req.file);
 
   const imageName = `image${Date.now()}.png`;
