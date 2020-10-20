@@ -12,10 +12,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "multer": "^1.4.2",
-    "puppeteer": "@5.3.1",
-    "sharp": "^0.26.2",
-    "tesseract.js": "^2.1.4",
-    "word-search-solver": "^1.2.1"
+    "puppeteer": "@5.3.1"
   },
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0"
