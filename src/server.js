@@ -9,10 +9,11 @@ const { parseOcrData } = require("./parseOcr");
 const port = process.env.PORT || 3030;
 
 const app = express();
-var upload = multer({ dest: "uploads/originals" });
+var upload = multer({ dest: "../uploads/originals" });
 var page;
 
-app.use("/static", express.static("public"));
+const publicPath = path.join(__dirname, `../public`);
+app.use("/static", express.static(publicPath));
 
 app.all("*", upload.single("source"), async (req, res) => {
   if (!req.file) {
@@ -24,11 +25,12 @@ app.all("*", upload.single("source"), async (req, res) => {
   const imageName = `image.png`;
   // const imageName = `image${Date.now()}.png`;
   const tempPath = req.file.path;
-  const targetPath = path.join(__dirname, `./uploads/${imageName}`);
+  const targetPath = path.join(__dirname, `../uploads/${imageName}`);
+  // const testPath = path.join(__dirname, `../image1602820376259.png`);
   await fs.renameSync(tempPath, targetPath);
 
-  const ocrdata = await ocr(page, "./image1602820376259.png");
-  // const ocrdata = await ocr(page, targetPath);
+  // const ocrdata = await ocr(page, testPath);
+  const ocrdata = await ocr(page, targetPath);
   // console.log(ocrdata);
   const { wordSearchGrid, wordsToFind } = parseOcrData(ocrdata);
   // console.log(wordSearchGrid);
