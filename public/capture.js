@@ -128,7 +128,8 @@
       formData.append("source", blob);
 
       // fetch("http://localhost:5000", {
-      fetch("http://parseimglnk.herokuapp.com/", {
+      fetch("/", {
+        // fetch("http://parseimglnk.herokuapp.com/", {
         method: "POST",
         body: formData,
       })

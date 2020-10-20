@@ -12,11 +12,14 @@ const app = express();
 var upload = multer({ dest: "uploads/originals" });
 var page;
 
+app.use("/static", express.static("public"));
+
 app.all("*", upload.single("source"), async (req, res) => {
   if (!req.file) {
     res.send("send an image to parse");
+    return;
   }
-  console.log(req.file);
+  // console.log(req.file);
 
   const imageName = `image.png`;
   // const imageName = `image${Date.now()}.png`;
@@ -26,9 +29,9 @@ app.all("*", upload.single("source"), async (req, res) => {
 
   const ocrdata = await ocr(page, "./image1602820376259.png");
   // const ocrdata = await ocr(page, targetPath);
-  console.log(ocrdata);
+  // console.log(ocrdata);
   const { wordSearchGrid, wordsToFind } = parseOcrData(ocrdata);
-  console.log(wordSearchGrid);
+  // console.log(wordSearchGrid);
   const solutions = wordSearchSolver(wordSearchGrid, wordsToFind);
   res.header("Access-Control-Allow-Origin", "*");
   res.json({ grid: wordSearchGrid, solutions });

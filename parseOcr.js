@@ -1,5 +1,4 @@
 function parseOcrData(data) {
-  console.log(data);
   const wordSearchGrid = [];
   const wordsToFind = [];
   let temporaryRow = [];
