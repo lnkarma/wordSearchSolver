@@ -127,14 +127,14 @@
       var formData = new FormData();
       formData.append("source", blob);
 
-      fetch("http://localhost:3030", {
+      fetch("http://parseimglnk.herokuapp.com/", {
         method: "POST",
         body: formData,
       })
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          drwaWordSearch(data);
+          drawWordSearch(data);
         })
         .catch((error) => console.log(error));
       const app = document.getElementById("app");
@@ -161,7 +161,7 @@ function b64toBlob(dataURI) {
   return new Blob([ab], { type: "image/jpeg" });
 }
 
-function drwaWordSearch({ grid, solutions }) {
+function drawWordSearch({ grid, solutions }) {
   const app = document.getElementById("app");
   app.innerHTML = "";
   app.style.position = "relative";
