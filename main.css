@@ -1,3 +1,8 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -13,6 +18,7 @@ body .contentarea {
   font-size: 16px;
   font-family: "Lucida Grande", "Arial", sans-serif;
   display: inline-block;
+  max-width: calc(100vh * 5 / 8);
 }
 
 body .contentarea .camera {
@@ -21,11 +27,7 @@ body .contentarea .camera {
 }
 
 body .contentarea .camera #video {
-  /* border: 1px solid black; */
-  /* box-shadow: 2px 2px 3px black; */
-  /* width: 320px; */
   height: 50vh;
-  width: calc(50vh * 4 / 3 - 1px);
 }
 
 body .contentarea .camera #startbutton {
@@ -43,8 +45,20 @@ body .contentarea .camera #startbutton {
   color: white;
 }
 
-body .contentarea #canvas {
-  display: none;
+body .contentarea .camera .verticalSeperator {
+  width: 25%;
+  background-color: rgba(255, 0, 0, 0.5);
+  height: 50vh;
+  position: absolute;
+  top: 0;
+}
+
+body .contentarea .camera #vsLeft {
+  left: 0;
+}
+
+body .contentarea .camera #vsRight {
+  right: 0;
 }
 
 body .contentarea .output {
@@ -52,44 +66,21 @@ body .contentarea .output {
   position: relative;
 }
 
-body .contentarea .output #photo {
-  width: calc(50vh * 4 / 3 - 1px);
-  height: 50vh;
-}
-
-body .contentarea .verticalSeperator {
-  width: 25%;
-  background-color: rgba(255, 0, 0, 0.5);
-  height: calc(50vh - 1px);
-  position: absolute;
-  top: 0;
-}
-
-body .contentarea #vsLeft {
-  left: 0;
-}
-
-body .contentarea #vsRight {
-  right: 0;
+body .contentarea .output #canvas {
+  position: relative;
+  display: block;
+  height: calc(50vh);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 body .result {
   width: 100vmin;
   height: 100vmin;
   display: inline-block;
-  border: 1px solid red;
 }
 
 body .result #app {
   display: inline-block;
-}
-
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-.hidden {
-  display: none;
 }
 /*# sourceMappingURL=main.css.map */

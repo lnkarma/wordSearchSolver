@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 body {
   margin: 0;
   padding: 0;
@@ -8,22 +11,15 @@ body {
     font-size: 16px;
     font-family: "Lucida Grande", "Arial", sans-serif;
     display: inline-block;
-    // width: 50%;
-
-    // border: 1px solid red;
+    max-width: calc(100vh * 5 / 8);
 
     .camera {
-      //   border: 1px solid black;
-      //   width: 100%;
       height: 50vh;
       position: relative;
 
       #video {
-        /* border: 1px solid black; */
-        /* box-shadow: 2px 2px 3px black; */
-        /* width: 320px; */
         height: 50vh;
-        width: calc(50vh * 4 / 3 - 1px);
+        // width: calc(50vh * 4 / 3);
       }
 
       #startbutton {
@@ -39,44 +35,42 @@ body {
         font-family: "Lucida Grande", "Arial", sans-serif;
         color: rgba(255, 255, 255, 1);
       }
-    }
 
-    #canvas {
-      display: none;
-    }
-
-    .output {
-      //   width: 100%;
-      height: 50vh;
-      position: relative;
-
-      #photo {
-        // border: 1px solid black;
-        // box-shadow: 2px 2px 3px black;
-        width: calc(50vh * 4 / 3 - 1px);
+      .verticalSeperator {
+        width: 25%;
+        background-color: rgba(255, 0, 0, 0.5);
         height: 50vh;
+        position: absolute;
+        top: 0;
+      }
+
+      #vsLeft {
+        left: 0;
+      }
+
+      #vsRight {
+        right: 0;
       }
     }
 
-    .verticalSeperator {
-      width: 25%;
-      background-color: rgba(255, 0, 0, 0.5);
-      height: calc(50vh - 1px);
-      position: absolute;
-      top: 0;
-    }
-
-    #vsLeft {
-      left: 0;
-    }
-
-    #vsRight {
-      right: 0;
-    }
-    // #photo,
-    // #video {
-    //   padding: 10px;
+    // #canvas {
+    //   display: none;
     // }
+
+    .output {
+      height: 50vh;
+      position: relative;
+
+      #canvas {
+        position: relative;
+        display: block;
+        // width: calc(50vh * 2 / 3);
+        // max-width: calc(50vmin);
+        height: calc(50vh);
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
   }
 
   .result {
@@ -84,18 +78,8 @@ body {
     height: 100vmin;
     display: inline-block;
 
-    border: 1px solid red;
-
     #app {
       display: inline-block;
     }
   }
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.hidden {
-  display: none;
 }

@@ -16,29 +16,10 @@ app.all("*", upload.single("source"), async (req, res) => {
 
   const imageName = `image${Date.now()}.png`;
   const tempPath = req.file.path;
-  const originalPath = path.join(__dirname, `./uploads/originals/${imageName}`);
+  // const originalPath = path.join(__dirname, `./uploads/originals/${imageName}`);
   const targetPath = path.join(__dirname, `./uploads/cropped/${imageName}`);
-  await fs.renameSync(tempPath, originalPath);
+  await fs.renameSync(tempPath, targetPath);
 
-  const image = sharp(originalPath);
-
-  const metadata = await image.metadata();
-
-  await image
-    .extract({
-      left: metadata.width / 4,
-      top: 0,
-      width: metadata.width / 2,
-      height: metadata.height,
-    })
-    .toFile(targetPath, (err, info) => {
-      // if (err)
-      console.log(err || info);
-    });
-
-  // console.log(tempPath, targetPath);
-
-  // const ocrdata = await ocr(page, "uploads/image1602745993281.png");
   const ocrdata = await ocr(page, targetPath);
   // console.log(ocrdata);
   const { wordSearchGrid, wordsToFind } = parseOcrData(ocrdata);
